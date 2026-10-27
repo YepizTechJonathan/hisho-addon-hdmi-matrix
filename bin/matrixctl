@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# matrixctl: see matrixctl.py. Hisho's venv when there is one (settings file, secrets, journal).
+here="$(dirname "$(readlink -f "$0")")"
+py=python3
+[ -x "$HOME/code/hisho/.venv/bin/python" ] && py="$HOME/code/hisho/.venv/bin/python"
+exec "$py" "$here/../matrixctl.py" "$@"

@@ -1,0 +1,183 @@
+{
+ "get input status": {
+  "comhead": "get input status",
+  "power": 1,
+  "edid": [
+   29,
+   29,
+   30,
+   29,
+   30,
+   36,
+   23,
+   38
+  ],
+  "inactive": [
+   0,
+   1,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "inname": [
+   "MainPC1",
+   "MainPC2",
+   "StreamingPC1",
+   "StreamingPC2",
+   "Lan3PC",
+   "LanPC2",
+   "LanPC3",
+   "GuestPC"
+  ]
+ },
+ "get output status": {
+  "comhead": "get output status",
+  "power": 1,
+  "allsource": [
+   1,
+   2,
+   2,
+   2,
+   8,
+   2,
+   1,
+   2
+  ],
+  "allscaler": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "allout": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "allhdbtout": [
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1,
+   1
+  ],
+  "allconnect": [
+   1,
+   1,
+   0,
+   0,
+   1,
+   0,
+   0,
+   1
+  ],
+  "allhdbtconnect": [
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0,
+   0
+  ],
+  "name": [
+   "ServerRoom",
+   "hdmioutput2",
+   "hdmioutput3",
+   "hdmioutput4",
+   "GuestPC",
+   "hdmioutput6",
+   "TopMonitor",
+   "BotMonitor"
+  ],
+  "hdbtname": [
+   "catoutput1",
+   "catoutput2",
+   "catoutput3",
+   "catoutput4",
+   "catoutput5",
+   "catoutput6",
+   "catoutput7",
+   "catoutput8"
+  ]
+ },
+ "get system status": {
+  "comhead": "get system status",
+  "power": 1,
+  "baudrate": 6,
+  "beep": 1,
+  "lock": 0,
+  "mode": 1,
+  "version": "V1.08.16"
+ },
+ "get video status": {
+  "comhead": "get video status",
+  "power": 1,
+  "allsource": [
+   1,
+   2,
+   2,
+   2,
+   8,
+   2,
+   1,
+   2
+  ],
+  "allinputname": [
+   "MainPC1",
+   "MainPC2",
+   "StreamingPC1",
+   "StreamingPC2",
+   "Lan3PC",
+   "LanPC2",
+   "LanPC3",
+   "GuestPC"
+  ],
+  "alloutputname": [
+   "ServerRoom",
+   "hdmioutput2",
+   "hdmioutput3",
+   "hdmioutput4",
+   "GuestPC",
+   "hdmioutput6",
+   "TopMonitor",
+   "BotMonitor"
+  ],
+  "allhdbtoutputname": [
+   "catoutput1",
+   "catoutput2",
+   "catoutput3",
+   "catoutput4",
+   "catoutput5",
+   "catoutput6",
+   "catoutput7",
+   "catoutput8"
+  ],
+  "allname": [
+   "preset1",
+   "preset2",
+   "preset3",
+   "preset4",
+   "preset5",
+   "preset6",
+   "preset7",
+   "preset8"
+  ]
+ }
+}

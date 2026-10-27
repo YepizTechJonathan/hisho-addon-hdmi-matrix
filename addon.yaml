@@ -1,0 +1,34 @@
+# HDMI matrix integration: one entry per HDMI matrix switch, each with a driver for its protocol
+# (instr-json: the "18Gbps 8x8 HDMI & Matrix" web UI's cgi-bin/instr JSON API; others go in matrix.py's
+# DRIVERS). Shows what each output shows, which monitors are detected, which
+# inputs have a signal and each input's EDID; warns when a watched screen goes dark or an input copies
+# its EDID from an output with no monitor (the matrix then sends its 1080p fallback). Switches inputs,
+# changes EDIDs and recalls presets from its page, after you confirm; factory reset, reboot, network
+# and firmware are never sent. Changes seen on the matrix are journaled. Add one from its page, or:
+#   hisho addon entry hdmi-matrix main address=192.0.2.9 watch=TopMonitor,BotMonitor
+# Terminal: matrixctl [MATRIX] status | route IN OUT | wake OUT | edid IN OPTION | preset N (writes ask first).
+name: hdmi-matrix
+kind: integration
+title: HDMI matrix
+description: Routing, monitors and signals of your HDMI matrices, with input switching and EDID control.
+version: 0.1.4
+you_need:
+  - "An HDMI matrix switch on your network that speaks a supported protocol (`instr-json` today)"
+provider: provider.py
+entry_form:
+  address: "Matrix address"
+  driver: "Protocol (instr-json for the 18Gbps 8x8 web UI)"
+  watch: "Outputs that should always show a picture (e.g. TopMonitor,BotMonitor)"
+  user: "Web UI user (only if switching needs a login)"
+  password: "Web UI password"
+  note: "Note"
+entry_label: matrix
+entry_schema:
+  address: str             # the matrix's IP address or host name
+  driver: "list(instr-json)?"  # its protocol (matrix.py DRIVERS); instr-json when left out
+  watch: "str?"            # outputs (names or numbers, comma-separated) that raise a problem when dark
+  user: "str?"             # web UI user (Admin or User); reads never log in
+  password: "password?"    # type it on the page (kept in Core's local secrets file) or give a secret's name
+  note: "str?"
+install: bin/install.sh
+uninstall: bin/uninstall.sh
