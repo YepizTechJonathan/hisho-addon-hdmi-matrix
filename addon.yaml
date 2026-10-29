@@ -12,7 +12,7 @@ name: hdmi-matrix
 kind: integration
 title: HDMI matrix
 description: Routing, monitors and signals of your HDMI matrices, with input switching and EDID control.
-version: 0.2.0
+version: 0.2.1
 you_need:
   - "An HDMI matrix switch on your network that speaks a supported protocol (`instr-json` today)"
 provider: provider.py
@@ -34,8 +34,12 @@ entry_schema:
 install: bin/install.sh
 uninstall: bin/uninstall.sh
 discover:
-  # instr-json: its web page names the model or its cgi-bin/instr API, so the driver is known too
-  - {http: "http://{ip}/", match: "cgi-bin/instr|HDP-MXB88D70M", title: "HDMI matrix at {ip} (instr-json)",
+  # instr-json: its API answers GET /cgi-bin/instr with 200, text/plain (both the HDP-MXB88D70M and the
+  # HDP-MXB88DA, whose own web page is built by script and names nothing, and whose API takes ~3 s); any other web
+  # server answers 404 there
+  - {http: "http://{ip}/cgi-bin/instr", status: 200, timeout: 6, match: "content-type: text/plain", title: "HDMI matrix at {ip}",
+     fill: {address: "{ip}", driver: "instr-json"}}
+  - {http: "http://{ip}/", match: "cgi-bin/instr|HDP-MXB88D70M", title: "HDMI matrix at {ip}",
      fill: {address: "{ip}", driver: "instr-json"}}
   # any other HDMI matrix web page: the address is filled in; which driver speaks to it is not known yet
   - {http: "http://{ip}/", match: "HDMI[^<]{0,40}Matrix|Matrix[^<]{0,40}HDMI|HDP-MXB", title: "HDMI matrix at {ip}",

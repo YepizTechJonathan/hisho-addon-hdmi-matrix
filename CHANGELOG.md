@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+
+- Found on your network finds both instr-json models: the HDP-MXB88DA's page names nothing and its API takes about 3 s, so the API path is asked (200, text/plain) with a longer wait.
+
 ## 0.2.0
 
 - Find it: the page lists HDMI matrices on your network by their web page (port 80, one GET). The instr-json model (its page names HDP-MXB88D70M or `cgi-bin/instr`) comes with its driver filled in; another matrix's page fills in only the address. Use this fills the form.
