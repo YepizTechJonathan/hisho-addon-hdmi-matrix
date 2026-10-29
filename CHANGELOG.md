@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.0
+
+- Find it: the page lists HDMI matrices on your network by their web page (port 80, one GET). The instr-json model (its page names HDP-MXB88D70M or `cgi-bin/instr`) comes with its driver filled in; another matrix's page fills in only the address. Use this fills the form.
+
 ## 0.1.5
 
 - Every field on its setup form says in plain words what it is, and links to where to get it (addon.yaml `help:`, shown by Hisho's dashboard).

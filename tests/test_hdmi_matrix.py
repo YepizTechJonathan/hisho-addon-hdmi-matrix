@@ -256,3 +256,20 @@ def test_wake_turns_it_back_on_even_when_the_pause_fails(mod, monkeypatch):
         m.wake(7)
     assert [b["out"] for b in fake.sent if b["comhead"] == "tx stream"] == [[7, 0], [7, 1]]
     assert fake.replies["get output status"]["allout"][6] == 1
+
+
+def test_find_it_knows_the_instr_json_matrix_by_its_web_page(addon):
+    import re
+    from hisho import connect
+    pages = {"http://192.0.2.9/": '<html><title>18Gbps 8x8 HDMI &amp; Matrix</title><script>var api="/cgi-bin/instr";</script>',
+             "http://192.0.2.10/": "<html><title>4x4 HDMI Matrix Switcher</title></html>",
+             "http://192.0.2.11/": "<html><title>Printer</title></html>"}
+    http = lambda url, match: url in pages and bool(re.search(match, pages[url], re.I))
+    tcp = lambda ip, port, banner="": port == 80 and f"http://{ip}/" in pages
+    got = connect.scan(addon, ["192.0.2.8/29"], tcp=tcp, http=http, rmcp=lambda ip, port: False, workers=2)
+    assert sorted(got, key=lambda f: int(f["ip"].rsplit(".", 1)[1])) == [
+        {"ip": "192.0.2.9", "title": "HDMI matrix at 192.0.2.9 (instr-json)",
+         "fill": {"address": "192.0.2.9", "driver": "instr-json"}},
+        {"ip": "192.0.2.10", "title": "HDMI matrix at 192.0.2.10", "fill": {"address": "192.0.2.10"}}]
+    assert addons.validate_manifest(addon.manifest) == []
+    assert all(f["fill"].get("driver", "instr-json") in addon.manifest["entry_schema"]["driver"] for f in got)

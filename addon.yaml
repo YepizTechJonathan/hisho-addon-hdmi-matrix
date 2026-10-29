@@ -4,14 +4,15 @@
 # inputs have a signal and each input's EDID; warns when a watched screen goes dark or an input copies
 # its EDID from an output with no monitor (the matrix then sends its 1080p fallback). Switches inputs,
 # changes EDIDs and recalls presets from its page, after you confirm; factory reset, reboot, network
-# and firmware are never sent. Changes seen on the matrix are journaled. Add one from its page, or:
+# and firmware are never sent. Changes seen on the matrix are journaled. Its page lists the matrices it finds on your
+# network (their web page on port 80; one GET each). Add one from its page, or:
 #   hisho addon entry hdmi-matrix main address=192.0.2.9 watch=TopMonitor,BotMonitor
 # Terminal: matrixctl [MATRIX] status | route IN OUT | wake OUT | edid IN OPTION | preset N (writes ask first).
 name: hdmi-matrix
 kind: integration
 title: HDMI matrix
 description: Routing, monitors and signals of your HDMI matrices, with input switching and EDID control.
-version: 0.1.5
+version: 0.2.0
 you_need:
   - "An HDMI matrix switch on your network that speaks a supported protocol (`instr-json` today)"
 provider: provider.py
@@ -32,15 +33,22 @@ entry_schema:
   note: "str?"
 install: bin/install.sh
 uninstall: bin/uninstall.sh
+discover:
+  # instr-json: its web page names the model or its cgi-bin/instr API, so the driver is known too
+  - {http: "http://{ip}/", match: "cgi-bin/instr|HDP-MXB88D70M", title: "HDMI matrix at {ip} (instr-json)",
+     fill: {address: "{ip}", driver: "instr-json"}}
+  # any other HDMI matrix web page: the address is filled in; which driver speaks to it is not known yet
+  - {http: "http://{ip}/", match: "HDMI[^<]{0,40}Matrix|Matrix[^<]{0,40}HDMI|HDP-MXB", title: "HDMI matrix at {ip}",
+     fill: {address: "{ip}"}}
 help:
   address:
     label: Matrix address
-    say: "The address you open the matrix's web page at, like 192.0.2.9. The matrix shows it on its front panel or in its manual; your router's list of devices has it too."
+    say: "The address you open the matrix's web page at, like 192.0.2.9. A matrix Hisho found on your network is filled in by Use this. Otherwise the matrix shows it on its front panel or in its manual; your router's list of devices has it too."
     get: "http://{address}/"
     get_label: Open the matrix's web page
   driver:
     label: Protocol
-    say: "Leave instr-json for the 18Gbps 8x8 HDMI matrix with a web page. Other models need their own driver first."
+    say: "Leave instr-json for the 18Gbps 8x8 HDMI matrix with a web page (Use this fills it in when its page shows that model). Other models need their own driver first: Test says when the matrix doesn't answer the instr-json way."
   watch:
     label: Screens to watch
     say: "Optional. Output names or numbers separated by commas, like TopMonitor,BotMonitor. Hisho tells you when one goes dark."

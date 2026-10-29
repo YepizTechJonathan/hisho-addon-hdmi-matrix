@@ -67,7 +67,12 @@ Its page (**Add-ons > HDMI matrix**) shows each output's input, monitor and pict
 
 ## Settings
 
-On its page (**Add-ons > HDMI matrix**), or in `~/Hisho/System/Config/Addons/hdmi-matrix.yaml`:
+Its page (**Add-ons > HDMI matrix**) lists the HDMI matrices it finds on your network: one look at each
+address's web page on port 80. A page that names the HDP-MXB88D70M or its `cgi-bin/instr` API is listed with
+the `instr-json` driver; another matrix's page is listed with its address only. **Use this** fills the form in;
+**Add** tests it (reads only) and saves it.
+
+Or add it by hand on its page, or in `~/Hisho/System/Config/Addons/hdmi-matrix.yaml`:
 
 ```yaml
 entries:
