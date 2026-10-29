@@ -11,7 +11,7 @@ name: hdmi-matrix
 kind: integration
 title: HDMI matrix
 description: Routing, monitors and signals of your HDMI matrices, with input switching and EDID control.
-version: 0.1.4
+version: 0.1.5
 you_need:
   - "An HDMI matrix switch on your network that speaks a supported protocol (`instr-json` today)"
 provider: provider.py
@@ -32,3 +32,27 @@ entry_schema:
   note: "str?"
 install: bin/install.sh
 uninstall: bin/uninstall.sh
+help:
+  address:
+    label: Matrix address
+    say: "The address you open the matrix's web page at, like 192.0.2.9. The matrix shows it on its front panel or in its manual; your router's list of devices has it too."
+    get: "http://{address}/"
+    get_label: Open the matrix's web page
+  driver:
+    label: Protocol
+    say: "Leave instr-json for the 18Gbps 8x8 HDMI matrix with a web page. Other models need their own driver first."
+  watch:
+    label: Screens to watch
+    say: "Optional. Output names or numbers separated by commas, like TopMonitor,BotMonitor. Hisho tells you when one goes dark."
+  user:
+    label: Web page user
+    say: "Only if the matrix refuses changes without a login: the user you sign in to its web page with (Admin or User). Reading never logs in."
+    get: "http://{address}/"
+    get_label: Open the matrix's web page
+  password:
+    label: Web page password
+    say: "That user's password, only if a login is needed. It is sent only to the matrix, at the moment of a change."
+    get: "http://{address}/"
+    get_label: Open the matrix's web page
+  note:
+    say: "Anything you want to remember about this matrix, like which room it is in."
