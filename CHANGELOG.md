@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.2
+
+- No alert when a screen's source PC sends no signal: the PC is usually just off. A missing monitor still alerts; the card still shows which inputs are live.
+
 ## 0.2.1
 
 - Found on your network finds both instr-json models: the HDP-MXB88DA's page names nothing and its API takes about 3 s, so the API path is asked (200, text/plain) with a longer wait.

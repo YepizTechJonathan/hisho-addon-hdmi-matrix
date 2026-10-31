@@ -284,3 +284,10 @@ def test_find_it_knows_both_instr_json_models_and_other_matrices(addon):
         {"ip": "192.0.2.12", "title": "HDMI matrix at 192.0.2.12", "fill": {"address": "192.0.2.12", "driver": "instr-json"}}]
     assert addons.validate_manifest(addon.manifest) == []
     assert all(f["fill"].get("driver", "instr-json") in addon.manifest["entry_schema"]["driver"] for f in got)
+
+
+def test_a_source_pc_that_is_off_is_not_an_alert(mod):
+    st = {"inputs": [{"name": "MainPC1", "signal": False}], "outputs": []}
+    assert mod._output_problem({"sink": True, "source": 1}, st) is None
+    assert not mod._lit({"sink": True, "source": 1}, st)
+    assert mod._output_problem({"sink": False, "source": 1}, st).startswith("no monitor detected")

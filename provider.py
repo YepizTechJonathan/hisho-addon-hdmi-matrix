@@ -63,12 +63,16 @@ def journal_changes(name: str, st: dict[str, Any]) -> list[str]:
 
 
 def _output_problem(o: dict[str, Any], st: dict[str, Any]) -> str | None:
+    """A screen's problem worth an alert. A source PC that is off (no signal) is not one: it is off on purpose
+    most of the time (Jonathan, 2026-10-31); the card still shows which inputs are live."""
     if not o["sink"]:
         return "no monitor detected (monitor off, or a bad cable / fiber run)"
-    src = st["inputs"][o["source"] - 1] if o["source"] else None
-    if src and not src["signal"]:
-        return f"its source {src['name']} sends no signal"
     return None
+
+
+def _lit(o: dict[str, Any], st: dict[str, Any]) -> bool:
+    src = st["inputs"][o["source"] - 1] if o["source"] else None
+    return bool(o["sink"]) and not (src and not src["signal"])
 
 
 def summary(entries: dict[str, dict[str, Any]], ctx: Any) -> dict[str, Any]:
@@ -83,7 +87,7 @@ def summary(entries: dict[str, dict[str, Any]], ctx: Any) -> dict[str, Any]:
                              "detail": f"{entry['address']}: {exc}"})
             continue
         journal_changes(name, st)
-        lit = sum(1 for o in st["outputs"] if o["sink"] and _output_problem(o, st) is None)
+        lit = sum(1 for o in st["outputs"] if _lit(o, st))
         heads.append(f"{lit}/{sum(o['sink'] for o in st['outputs'])} screens lit"
                      f" · {sum(i['signal'] for i in st['inputs'])} inputs live")
         fallback = mx.edid_warnings(st)

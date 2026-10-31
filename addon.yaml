@@ -12,7 +12,7 @@ name: hdmi-matrix
 kind: integration
 title: HDMI matrix
 description: Routing, monitors and signals of your HDMI matrices, with input switching and EDID control.
-version: 0.2.1
+version: 0.2.2
 you_need:
   - "An HDMI matrix switch on your network that speaks a supported protocol (`instr-json` today)"
 provider: provider.py
