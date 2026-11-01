@@ -64,7 +64,7 @@ def journal_changes(name: str, st: dict[str, Any]) -> list[str]:
 
 def _output_problem(o: dict[str, Any], st: dict[str, Any]) -> str | None:
     """A screen's problem worth an alert. A source PC that is off (no signal) is not one: it is off on purpose
-    most of the time (Jonathan, 2026-10-31); the card still shows which inputs are live."""
+    most of the time (the owner's call, 2026-10-31); the card still shows which inputs are live."""
     if not o["sink"]:
         return "no monitor detected (monitor off, or a bad cable / fiber run)"
     return None

@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.3
+
+- A code comment no longer names a person (the product image refuses personal names).
+
 ## 0.2.2
 
 - No alert when a screen's source PC sends no signal: the PC is usually just off. A missing monitor still alerts; the card still shows which inputs are live.
